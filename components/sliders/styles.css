@@ -1,0 +1,51 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+.image-container {
+  display: flex;
+  margin: auto;
+  position: relative;
+  height: 100vh;
+  width: 90%;
+  overflow: hidden;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+
+  top: 0;
+  bottom: 0;
+}
+
+.image-one {
+  animation: 0.4s animateDown ease-out;
+  clip-path: inset(0 50% 0 0);
+  left: 0;
+}
+.image-two {
+  animation: 0.4s animateUp ease-out;
+  clip-path: inset(0 0 0 50%);
+  right: 0;
+}
+
+@keyframes animateDown {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+@keyframes animateUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
