@@ -1,154 +1,126 @@
 "use client";
-
 import React, { useState } from "react";
-import { Swiper, SwiperClass, SwiperSlide } from "swiper/react";
-import {
-  Autoplay,
-  Controller,
-  Mousewheel,
-  Pagination,
-  Scrollbar,
-} from "swiper/modules";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Thumbs, Controller } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/thumbs";
 
-import photo1 from "../photos/photo1.jpg";
-import photo2 from "../photos/photo2.jpg";
-import photo3 from "../photos/photo3.jpg";
-import photo4 from "../photos/photo4.jpg";
-
-const images = [photo1.src, photo2.src, photo3.src, photo4.src];
-
-export default function Component() {
-  const [leftSwiper, setLeftSwiper] = useState<SwiperClass | null>(null);
-  const [rightSwiper, setRightSwiper] = useState<SwiperClass | null>(null);
-
-  const nextSlide = () => {
-    leftSwiper?.slideNext();
-    rightSwiper?.slidePrev();
-  };
-
-  const prevSlide = () => {
-    leftSwiper?.slidePrev();
-    rightSwiper?.slideNext();
-  };
-
-  const rightImages = [...images];
-  const leftImages = [
-    ...images.slice(0, 1),
-    ...images.slice(1, images.length).reverse(),
-  ];
+const ImageSwiper: React.FC = () => {
+  const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
+  const [mainSwiper, setMainSwiper] = useState<any>(null); // To control the main swiper
 
   return (
-    <div className="relative w-full max-w-4xl mx-auto h-[600px] overflow-hidden bg-black">
-      <div className="absolute inset-0 flex">
-        <Swiper
-          direction="vertical"
-          modules={[Controller, Scrollbar, Pagination, Mousewheel]}
-          keyboard={{
-            enabled: true,
-            onlyInViewport: false,
-          }}
-          controller={{ control: rightSwiper, inverse: true }}
-          onSwiper={(swiper) => setLeftSwiper(swiper)}
-          className="flex-1 swiper-container"
-          speed={600}
-          autoplay={{
-            delay: 1000,
-            disableOnInteraction: false,
-          }}
-          pagination={{
-            el: ".custom-pagination",
-            type: "bullets",
-            clickable: true,
-            bulletClass: "h-2 w-2 rounded-full cursor-pointer bg-white",
-            bulletActiveClass: "bg-black",
-          }}
-          loop
-          allowTouchMove={false}
-        >
-          {images.map((image, index) => (
-            <SwiperSlide
-              key={`left-${index}`}
-              className="w-full h-full relative"
-            >
-              <div
-                className="w-full h-full bg-cover"
-                style={{
-                  backgroundImage: `url(${image})`,
-                  backgroundPosition: "left",
-                  backgroundSize: "200% 100%",
-                }}
-              />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-        <Swiper
-          direction="vertical"
-          modules={[Controller, Scrollbar, Pagination, Mousewheel, Autoplay]}
-          onSwiper={(swiper) => setRightSwiper(swiper)}
-          controller={{ control: leftSwiper, inverse: true }}
-          autoplay={{
-            delay: 2000,
-            disableOnInteraction: false,
-          }}
-          className="flex-1"
-          keyboard={{
-            enabled: true,
-            onlyInViewport: false,
-          }}
-          speed={600}
-          pagination={{
-            el: ".custom-pagination",
-            type: "bullets",
-            clickable: true,
-            bulletClass: "h-2 w-2 rounded-full cursor-pointer bg-black",
-            bulletActiveClass: "bg-white",
-          }}
-          loop
-          allowTouchMove={false}
-        >
-          {rightImages.map((image, index) => (
-            <SwiperSlide
-              key={`right-${index}`}
-              className="w-full h-full relative"
-            >
-              <div
-                className="w-full h-full bg-cover"
-                style={{
-                  backgroundImage: `url(${image})`,
-                  backgroundPosition: "right",
-                  backgroundSize: "200% 100%",
-                }}
-              />
-            </SwiperSlide>
-          ))}
-        </Swiper>
+    <div className="gallery w-full relative min-h-[31.25rem] h-screen bg-[#202948]">
+      {/* Content Section */}
+      <div className="content absolute z-50 left-16 top-1/2 transform -translate-y-1/2 uppercase text-white tracking-wider">
+        <span className="block text-[clamp(1.85rem,1.7053rem+0.5447vw,2.25rem)] font-light mb-[-1.875rem]">
+          every
+        </span>
+        <h1 className="text-[clamp(3.5rem,1.8723rem+6.1277vw,8rem)] font-normal">
+          picture
+        </h1>
+        <p className="text-[clamp(1.2rem,1.0191rem+0.6809vw,1.7rem)] mt-[-1.563rem]">
+          tells a story
+        </p>
+        <hr className="block w-12 border-none h-0.5 bg-white mt-4 mx-1" />
       </div>
-      <div className="absolute bottom-4 left-4 right-4 flex justify-between z-10">
-        <button
-          onClick={prevSlide}
-          className="bg-white backdrop-blur-sm"
-          aria-label="Previous image"
-        >
-          <ChevronLeft className="h-4 w-4" />
-        </button>
-        <button
-          onClick={nextSlide}
-          className="bg-white backdrop-blur-sm"
-          aria-label="Next image"
-        >
-          <ChevronRight className="h-4 w-4" />
-        </button>
-      </div>
-      <div className="custom-pagination swiper-pagination-vertical absolute right-4 top-1/2 transform -translate-y-1/2 flex flex-col items-center z-10 gap-2" />
-      <style jsx global>{`
-        .swiper-slide {
-          transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
-        }
-      `}</style>
+
+      {/* Footer Section */}
+      <footer className="absolute z-50 left-8 bottom-4 transform -translate-y-1/2 md:left-16">
+        <ul className="list-none flex gap-6">
+          <li className="uppercase text-[#1aad8a] font-semibold text-[1.75rem] tracking-wider">
+            <span className="text-sm opacity-40 text-white font-light mr-2">
+              likes
+            </span>
+            87
+          </li>
+          <li className="uppercase text-[#1aad8a] font-semibold text-[1.75rem] tracking-wider">
+            <span className="text-sm opacity-40 text-white font-light mr-2">
+              views
+            </span>
+            173
+          </li>
+        </ul>
+      </footer>
+
+      {/* Main Swiper */}
+      <Swiper
+        modules={[Navigation, Pagination, Controller, Thumbs]}
+        spaceBetween={10}
+        navigation
+        pagination={{ clickable: true }}
+        thumbs={{ swiper: thumbsSwiper }}
+        controller={{ control: mainSwiper ?? undefined }}
+        onSwiper={(swiper) => setThumbsSwiper(swiper)}
+        className="gallery-slider w-full h-full"
+      >
+        <SwiperSlide>
+          <img
+            className="w-full h-full object-cover pointer-events-none"
+            src="https://images.pexels.com/photos/1478685/pexels-photo-1478685.jpeg"
+            alt="Man sitting on a stone on the lake"
+          />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img
+            className="w-full h-full object-cover pointer-events-none"
+            src="https://images.unsplash.com/photo-1676557059846-2dad064ae6e2"
+            alt="Lake"
+          />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img
+            className="w-full h-full object-cover pointer-events-none"
+            src="https://images.unsplash.com/photo-1676557060416-1418aefb165d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
+            alt="Fishermen"
+          />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img
+            className="w-full h-full object-cover pointer-events-none"
+            src="https://images.unsplash.com/photo-1675685468877-8cda3a02c49f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
+            alt="Surfer"
+          />
+        </SwiperSlide>
+        {/* Add other SwiperSlide items here */}
+      </Swiper>
+
+      {/* Thumbnail Swiper */}
+      <Swiper
+        controller={{ control: mainSwiper }}
+        onSwiper={(swiper) => setThumbsSwiper(swiper)}
+        spaceBetween={10}
+        slidesPerView={"auto"}
+        watchSlidesProgress
+        className="gallery-thumbs absolute bottom-32 right-0 w-[14.375rem] overflow-hidden md:w-[25rem]"
+      >
+        <SwiperSlide className="w-[6.25rem] h-[6.25rem] text-center overflow-hidden opacity-50">
+          <img
+            className="w-auto h-full"
+            src="https://images.pexels.com/photos/1478685/pexels-photo-1478685.jpeg"
+            alt="Man sitting on a stone on the lake"
+          />
+        </SwiperSlide>
+        <SwiperSlide className="w-[6.25rem] h-[6.25rem] text-center overflow-hidden opacity-50">
+          <img
+            className="w-auto h-full"
+            src="https://images.unsplash.com/photo-1676557059846-2dad064ae6e2"
+            alt="Lake"
+          />
+        </SwiperSlide>
+        {/* Add other SwiperSlide items here */}
+      </Swiper>
+
+      <a
+        href="#"
+        className="more uppercase text-white opacity-30 text-sm absolute z-10 right-8 tracking-wider transform -translate-y-4 hidden md:inline-block hover:opacity-100"
+      >
+        see more
+      </a>
     </div>
   );
-}
+};
+
+export default ImageSwiper;
