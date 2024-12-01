@@ -1,4 +1,4 @@
-import SlicingSlider from "@/components/sliders/v0-slicing";
+import SlicingSlider from "@/components/sliders/slicing-slider-v2";
 
 export default function SlidersPAge() {
   return (

@@ -9,7 +9,7 @@ import {
   Pagination,
   Scrollbar,
 } from "swiper/modules";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+// import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -20,26 +20,21 @@ import photo3 from "../photos/photo3.jpg";
 import photo4 from "../photos/photo4.jpg";
 
 const images = [photo1.src, photo2.src, photo3.src, photo4.src];
+const images2 = [photo4.src, photo3.src, photo2.src, photo1.src];
 
 export default function Component() {
   const [leftSwiper, setLeftSwiper] = useState<SwiperClass | null>(null);
   const [rightSwiper, setRightSwiper] = useState<SwiperClass | null>(null);
 
-  const nextSlide = () => {
-    leftSwiper?.slideNext();
-    rightSwiper?.slidePrev();
-  };
+  // const nextSlide = () => {
+  //   leftSwiper?.slideNext();
+  //   rightSwiper?.slideNext();
+  // };
 
-  const prevSlide = () => {
-    leftSwiper?.slidePrev();
-    rightSwiper?.slideNext();
-  };
-
-  const rightImages = [...images];
-  const leftImages = [
-    ...images.slice(0, 1),
-    ...images.slice(1, images.length).reverse(),
-  ];
+  // const prevSlide = () => {
+  //   leftSwiper?.slidePrev();
+  //   rightSwiper?.slidePrev();
+  // };
 
   return (
     <div className="relative w-full max-w-4xl mx-auto h-[600px] overflow-hidden bg-black">
@@ -55,15 +50,15 @@ export default function Component() {
           onSwiper={(swiper) => setLeftSwiper(swiper)}
           className="flex-1 swiper-container"
           speed={600}
-          autoplay={{
-            delay: 1000,
-            disableOnInteraction: false,
-          }}
+          // autoplay={{
+          //   delay: 1000,
+          //   disableOnInteraction: false,
+          // }}
           pagination={{
             el: ".custom-pagination",
             type: "bullets",
             clickable: true,
-            bulletClass: "h-2 w-2 rounded-full cursor-pointer bg-white",
+            bulletClass: "h-4 w-4 rounded-full cursor-pointer bg-white",
             bulletActiveClass: "bg-black",
           }}
           loop
@@ -71,7 +66,7 @@ export default function Component() {
         >
           {images.map((image, index) => (
             <SwiperSlide
-              key={`left-${index}`}
+              key={`left-${image}`}
               className="w-full h-full relative"
             >
               <div
@@ -90,10 +85,10 @@ export default function Component() {
           modules={[Controller, Scrollbar, Pagination, Mousewheel, Autoplay]}
           onSwiper={(swiper) => setRightSwiper(swiper)}
           controller={{ control: leftSwiper, inverse: true }}
-          autoplay={{
-            delay: 2000,
-            disableOnInteraction: false,
-          }}
+          // autoplay={{
+          //   delay: 2000,
+          //   disableOnInteraction: false,
+          // }}
           className="flex-1"
           keyboard={{
             enabled: true,
@@ -104,15 +99,15 @@ export default function Component() {
             el: ".custom-pagination",
             type: "bullets",
             clickable: true,
-            bulletClass: "h-2 w-2 rounded-full cursor-pointer bg-black",
+            bulletClass: "h-4 w-4 rounded-full cursor-pointer bg-black",
             bulletActiveClass: "bg-white",
           }}
           loop
           allowTouchMove={false}
         >
-          {rightImages.map((image, index) => (
+          {images2.map((image, index) => (
             <SwiperSlide
-              key={`right-${index}`}
+              key={`right-${image}`}
               className="w-full h-full relative"
             >
               <div
@@ -128,7 +123,7 @@ export default function Component() {
         </Swiper>
       </div>
       <div className="absolute bottom-4 left-4 right-4 flex justify-between z-10">
-        <button
+        {/* <button
           onClick={prevSlide}
           className="bg-white backdrop-blur-sm"
           aria-label="Previous image"
@@ -141,9 +136,9 @@ export default function Component() {
           aria-label="Next image"
         >
           <ChevronRight className="h-4 w-4" />
-        </button>
+        </button> */}
       </div>
-      <div className="custom-pagination swiper-pagination-vertical absolute right-4 top-1/2 transform -translate-y-1/2 flex flex-col items-center z-10 gap-2" />
+      <div className="custom-pagination swiper-pagination-vertical absolute right-0 top-1/2 transform -translate-y-1/2 flex flex-col items-center z-10 gap-2" />
       <style jsx global>{`
         .swiper-slide {
           transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
