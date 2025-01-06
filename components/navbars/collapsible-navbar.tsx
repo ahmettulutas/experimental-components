@@ -19,12 +19,7 @@ export const CollapsibleNavbar = () => {
         <section className="w-full flex items-center gap-4 justify-between bg-white rounded-[20px] p-5 flex-col md:flex-row">
           <div className="w-full md:w-auto flex items-center justify-between">
             <Link href="/" className="text-primary">
-              <div
-                aria-label="aksandık logo"
-                className="bg-gray-700 text-white"
-              >
-                LOGO
-              </div>
+              <button className="bg-gray-700 text-white">LOGO</button>
             </Link>
             <div className="z-20 flex items-center gap-2 md:hidden">
               <SearchIcon />

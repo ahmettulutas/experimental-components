@@ -56,12 +56,7 @@ export const NavbarWithDrawer = (props: NavbarWithDrawerProps) => {
       >
         <section className="w-full flex items-center gap-4 justify-between bg-white rounded-[20px] p-5">
           <Link href="/" className="text-primary">
-            <div
-              aria-label="aksandık logo"
-              className="bg-gray-400 rounded-3xl px-2 text-white"
-            >
-              LOGO
-            </div>
+            <button className="bg-gray-700 text-white">LOGO</button>
           </Link>
           <ul className="gap-4 lg:gap-20 hidden md:flex justify-between m-auto">
             {navLinks.map(({ label, path }, idx) => (
